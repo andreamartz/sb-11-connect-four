@@ -37,28 +37,33 @@ function makeHtmlBoard() {
   const htmlBoard = document.querySelector("#board");
   // TODO: add comment for this code
 
-  // top is a tr referring to the top "row" of the board; it's where the players click to drop a piece in
+  // top is a tr referring to the top "row" of the board where the players click to drop a piece in
   const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
   // headCells are tds - the pseudo cells in the top "row" of the board
-  // this for loop creates them, gives them unique ids, and appends them onto that top row
+  // this for loop creates them, gives them ids indicating column #,
+  // and appends them onto that top row
   for (let x = 0; x < WIDTH; x++) {
     const headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
+  // Append top "row to the game board/grid"
   htmlBoard.append(top);
 
   // TODO: add comment for this code
+  // for each row y, create a tr
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
+    // for each column x, create a td grid cell with id to indicate position & append cell to the current row
     for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
       cell.setAttribute("id", `${y}-${x}`);
       row.append(cell);
     }
+    // append the row to the board
     htmlBoard.append(row);
   }
 }
