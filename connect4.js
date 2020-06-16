@@ -8,8 +8,9 @@
 const WIDTH = 7;
 const HEIGHT = 6;
 
-const currPlayer = 1; // active player: 1 or 2
+let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
+let boardIsFull = false;
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -17,7 +18,6 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
-  const board = [];
   for (let i = 0; i < HEIGHT; i++) {
     // for every row of the board
     const row = [];
@@ -87,6 +87,7 @@ function placeInTable(y, x) {
 
   const targetTdId = `${y}-${x}`;
   const td = document.getElementById(`${targetTdId}`);
+  // const td = document.querySelector(`#${y}-${x}`);  // why doesn't this work?
   console.log(td);
   td.append(piece);
 }
@@ -112,6 +113,7 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
   placeInTable(y, x);
+  board[`${y}`][`${x}`] = currPlayer;
 
   // check for win
   if (checkForWin()) {
@@ -120,9 +122,21 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+  const rowFills = [];
+  for (let y = 0; y < board.length; y++) {
+    const currRowIsFull = board[y].every((el) => el !== null);
+    rowFills.push(currRowIsFull);
+  }
+  for (let x = 0; x < rowFills; x++) {
+    boardIsFull = rowFills.every((el) => el === true);
+  }
+  if (boardIsFull) {
+    endGame("Game over");
+  }
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -145,8 +159,8 @@ function checkForWin() {
 
   // TODO: read and understand this code. Add comments to help you.
 
-  for (const y = 0; y < HEIGHT; y++) {
-    for (const x = 0; x < WIDTH; x++) {
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
       const horiz = [
         [y, x],
         [y, x + 1],
