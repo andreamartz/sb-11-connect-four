@@ -34,12 +34,16 @@ function makeBoard() {
 
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
-
+  const htmlBoard = document.querySelector("#board");
   // TODO: add comment for this code
+
+  // top is a tr referring to the top "row" of the board; it's where the players click to drop a piece in
   const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
+  // headCells are tds - the pseudo cells in the top "row" of the board
+  // this for loop creates them, gives them unique ids, and appends them onto that top row
   for (let x = 0; x < WIDTH; x++) {
     const headCell = document.createElement("td");
     headCell.setAttribute("id", x);
