@@ -82,7 +82,7 @@ function placeInTable(y, x) {
   // make piece div
   const piece = document.createElement("div");
   piece.classList.add("piece");
-  piece.classList.add("player1");
+  piece.classList.add("player" + currPlayer);
   // insert piece div into correct td
 
   const targetTdId = `${y}-${x}`;
