@@ -42,7 +42,7 @@ function makeHtmlBoard() {
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
-  // headCells are tds - the pseudo cells in the top "row" of the board
+  // headCells are tds in the top "row" of the board
   // this for loop creates them, gives them ids indicating column #,
   // and appends them onto that top row
   for (let x = 0; x < WIDTH; x++) {
@@ -69,10 +69,14 @@ function makeHtmlBoard() {
 }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
-
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  for (let y = board.length - 1; y >= 0; y--) {
+    if (board[y][x] === null) {
+      return y;
+    }
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -82,7 +86,7 @@ function placeInTable(y, x) {
   // make piece div
   const piece = document.createElement("div");
   piece.classList.add("piece");
-  piece.classList.add("player1");
+  piece.classList.add("player" + currPlayer);
   // insert piece div into correct td
 
   const targetTdId = `${y}-${x}`;
@@ -96,6 +100,11 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
+  if (tie) {
+    alert(msg);
+  } else {
+    alert(msg);
+  }
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -121,7 +130,7 @@ function handleClick(evt) {
   }
 
   // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
+  // TODO: check if all cells in board are filled; if so, call endGame
   const rowFills = [];
   for (let y = 0; y < board.length; y++) {
     const currRowIsFull = board[y].every((el) => el !== null);
@@ -131,7 +140,7 @@ function handleClick(evt) {
     boardIsFull = rowFills.every((el) => el === true);
   }
   if (boardIsFull) {
-    endGame("Game over");
+    endGame("Game over with no winner");
   }
 
   // switch players
@@ -161,6 +170,9 @@ function checkForWin() {
 
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
+      // for every cell on the board...
+      // 1. ...generate the four possible winning cell "coordinate" combinations in the up and right direction
+      // 2. ...include coordinates of impossible cells
       const horiz = [
         [y, x],
         [y, x + 1],
@@ -185,7 +197,7 @@ function checkForWin() {
         [y + 2, x - 2],
         [y + 3, x - 3],
       ];
-
+      // 3. ...check for a win in any of the four cell combinations
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
