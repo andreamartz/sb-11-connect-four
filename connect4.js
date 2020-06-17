@@ -100,6 +100,11 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
+  if (tie) {
+    alert(msg);
+  } else {
+    alert(msg);
+  }
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -165,6 +170,9 @@ function checkForWin() {
 
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
+      // for every cell on the board...
+      // 1. ...generate the four possible winning cell "coordinate" combinations in the up and right direction
+      // 2. ...include coordinates of impossible cells
       const horiz = [
         [y, x],
         [y, x + 1],
@@ -189,7 +197,7 @@ function checkForWin() {
         [y + 2, x - 2],
         [y + 3, x - 3],
       ];
-
+      // 3. ...check for a win in any of the four cell combinations
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
