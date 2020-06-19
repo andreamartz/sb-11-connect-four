@@ -13,15 +13,39 @@
   height: 50px;
   border: solid 1px #666;
   background-color: gold;
+  /* position: relative; */
+}
+
+#board {
+  position: relative;
 }
 
 /* pieces are div within game table cells: draw as colored circles */
 .piece {
   /* TODO: make into circles */
   margin: 5px;
-  width: 80%;
-  height: 80%;
+  /* width: 80%;
+  height: 80%; */
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  position: absolute;
+  /* top: 320px; */
+  /* top: 340px; */
+  animation: fall 0.9s;
+  transition: ease-out;
+}
+
+@keyframes fall {
+  0% {
+    top: 0;
+  }
+  /* 50% {
+    top: 170px;
+  } */
+  100% {
+    top: 340px;
+  }
 }
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
