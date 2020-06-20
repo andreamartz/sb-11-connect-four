@@ -85,34 +85,26 @@ const findSpotForCol = (x) => {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 const placeInTable = (y, x) => {
-  // TODO: make a div and insert into correct table cell
-  // make piece div
+  // make a div and insert into correct table cell
   const piece = document.createElement("div");
   piece.classList.add("piece");
   piece.classList.add("player" + currPlayer);
-  // piece.style.top = `${50 * (y + 2)}px`;
-  // piece.style.top = 0;
-  // console.log("top: ", piece.style.top);
 
   // insert piece div into correct td
-
   const targetTdId = `${y}-${x}`;
   const td = document.getElementById(`${targetTdId}`);
   // const td = document.querySelector(`#${y}-${x}`);  // why doesn't this work?
-  console.log(td);
   td.append(piece);
 };
 
-/** endGame: announce game end */
-
+/** endGame: announce game end according to message passed in */
 const endGame = (msg) => {
-  // TODO: pop up alert message after small delay
+  // pop up alert message after small delay
   setTimeout(() => alert(msg), 300);
   allowTurn = false;
 };
 
 /** handleClick: handle click of column top to play piece */
-
 const handleClick = (evt) => {
   // get x from ID of clicked cell
   if (allowTurn) {

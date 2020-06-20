@@ -20,41 +20,26 @@ body,
   height: 50px;
   border: solid 1px #666;
   background-color: #fab95b;
-  /* position: relative; */
 }
 
-/* #board {
-  position: relative;
-} */
-
-/* pieces are div within game table cells: draw as colored circles */
+/* pieces are divs within game table cells: draw as colored circles */
 .piece {
-  /* TODO: make into circles */
   margin: 5px;
-  /* width: 80%;
-  height: 80%; */
-  width: 40px;
-  height: 40px;
+  width: 80%;
+  height: 80%;
   border-radius: 50%;
-  /* position: absolute; */
-  /* top: 0; */
-  /* top: 340px; */
-  /* animation: fall 0.9s; */
-  /* transition: ease-out; */
-  /* animation-fill-mode: forwards */
+  animation: fall 0.9s;
+  transition: ease-out;
 }
 
-/* @keyframes fall { */
-/* 0% {
-    top: 0;
-  } */
-/* 50% {
-    top: 170px;
-  } */
-/* 100% { */
-/* top: 340px; */
-/* } */
-/* } */
+@keyframes fall {
+  from {
+    transform: translateY(-340px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
 .player1 {
@@ -66,7 +51,6 @@ body,
 }
 
 /* column-top is table row of clickable areas for each column */
-
 #column-top td {
   border: dashed 1px lightgray;
   background-color: white;
