@@ -145,7 +145,7 @@ const handleClick = (evt) => {
   } else return;
 };
 
-/** checkForWin: check last cell played: does a win start or end here? */
+/** checkForWin: check board cell-by-cell for "does a win start here?" */
 
 function checkForWin(y, x) {
   function _win(cells) {
@@ -163,69 +163,41 @@ function checkForWin(y, x) {
     );
   }
 
-  // For the most recent turn taken,
-  // 1. ...generate the eight possible winning cell "coordinate" combinations
+  // For every cell in the board:
+  // 1. ...generate the four possible winning cell "coordinate" combinations
   // 2. ...include the coordinates of impossible cells outside the board
-  const horizR = [
-    [y, x],
-    [y, x + 1],
-    [y, x + 2],
-    [y, x + 3],
-  ];
-  const horizL = [
-    [y, x],
-    [y, x - 1],
-    [y, x - 2],
-    [y, x - 3],
-  ];
-  const vertD = [
-    [y, x],
-    [y + 1, x],
-    [y + 2, x],
-    [y + 3, x],
-  ];
-  const vertU = [
-    [y, x],
-    [y - 1, x],
-    [y - 2, x],
-    [y - 3, x],
-  ];
-  const diagDR = [
-    [y, x],
-    [y + 1, x + 1],
-    [y + 2, x + 2],
-    [y + 3, x + 3],
-  ];
-  const diagUR = [
-    [y, x],
-    [y - 1, x + 1],
-    [y - 2, x + 2],
-    [y - 3, x + 3],
-  ];
-  const diagDL = [
-    [y, x],
-    [y + 1, x - 1],
-    [y + 2, x - 2],
-    [y + 3, x - 3],
-  ];
-  const diagUL = [
-    [y, x],
-    [y - 1, x - 1],
-    [y - 2, x - 2],
-    [y - 3, x - 3],
-  ];
-  // 3. ...check for a win in any of the eight cell combinations
-  if (
-    _win(horizR) ||
-    _win(horizL) ||
-    _win(vertD) ||
-    _win(vertU) ||
-    _win(diagDR) ||
-    _win(diagUR) ||
-    _win(diagDL) ||
-    _win(diagUL)
-  ) {
-    return true;
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
+      const horiz = [
+        [y, x],
+        [y, x + 1],
+        [y, x + 2],
+        [y, x + 3],
+      ];
+      const vert = [
+        [y, x],
+        [y + 1, x],
+        [y + 2, x],
+        [y + 3, x],
+      ];
+      const diagDR = [
+        [y, x],
+        [y + 1, x + 1],
+        [y + 2, x + 2],
+        [y + 3, x + 3],
+      ];
+      const diagDL = [
+        [y, x],
+        [y + 1, x - 1],
+        [y + 2, x - 2],
+        [y + 3, x - 3],
+      ];
+
+      // 3. ...check for a win in any of the eight cell combinations
+      if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
+        return true;
+      }
+    }
   }
 }
 
