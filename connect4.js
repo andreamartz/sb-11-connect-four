@@ -147,7 +147,7 @@ const handleClick = (evt) => {
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
-function checkForWin(y, x) {
+function checkForWin() {
   function _win(cells) {
     // Check four cells to see if they're all color of current player
     //  - cells: list of four (y, x) cells
