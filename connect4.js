@@ -89,6 +89,8 @@ const placeInTable = (y, x) => {
   const piece = document.createElement("div");
   piece.classList.add("piece");
   piece.classList.add("player" + currPlayer);
+  piece.style.top = -52 * (y + 1) + "px";
+  // piece.style.setProperty("--fall-distance", -52 * (y + 1) + "px");
 
   // insert piece div into correct td
   const targetTdId = `${y}-${x}`;

@@ -1,4 +1,8 @@
 /* global */
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #e8e2db;
   color: #1a3263;
@@ -12,6 +16,7 @@ body,
 
 #board {
   display: inline-block;
+  /* position: relative; */
 }
 
 /* game board table */
@@ -28,20 +33,17 @@ body,
   width: 80%;
   height: 80%;
   border-radius: 50%;
-  animation: fall 0.9s;
-  transition: ease-out;
+  top: var(--fall-distance);
+  animation: fall 0.9s forwards ease-in-out;
+  position: relative;
 }
 
 @keyframes fall {
-  from {
-    transform: translateY(-340px);
-  }
   100% {
-    transform: translateY(0);
+    top: 0px;
   }
 }
 
-/* TODO: make pieces red/blue,  depending on player 1/2 piece */
 .player1 {
   background-color: #f5564e;
 }
